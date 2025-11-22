@@ -16,9 +16,7 @@ from tensorflow.keras.layers import Dense, Dropout
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.layers import Input
 
-# ==============================================================================
 # 1. MODELADO FÍSICO-QUÍMICO (TEORÍA KUBELKA-MUNK)
-# ==============================================================================
 
 class Pigmento:
     """
@@ -72,9 +70,7 @@ def rgb_a_cielab(rgb):
 
     return np.array([L, a_val, b_val])
 
-# ==============================================================================
 # 2. GENERACIÓN DE DATASET SINTÉTICO
-# ==============================================================================
 
 print("Iniciando simulación de Monte Carlo para generar dataset (N=100,000)...")
 
@@ -105,9 +101,7 @@ dataset_completo = pd.concat([df_recetas, df_colores], axis=1)
 
 print("Dataset generado exitosamente.")
 
-# ==============================================================================
-# 3. ENTRENAMIENTO DE LA RED NEURONAL INVERSA (INVERSE DESIGN)
-# ==============================================================================
+# 3. ENTRENAMIENTO DE LA RED NEURONAL INVERSA
 
 # Definición de variables para el problema inverso:
 # Entrada: Propiedad Deseada (Color LAB) -> Salida: Formulación (Receta)
@@ -131,9 +125,7 @@ print("Iniciando entrenamiento del modelo predictivo...")
 history = model.fit(X_train, y_train, epochs=50, batch_size=32, verbose=0, validation_split=0.1)
 print(f"Entrenamiento finalizado. Validation Loss: {history.history['val_loss'][-1]:.2e}")
 
-# ==============================================================================
-# 4. VALIDACIÓN DE LAZO CERRADO (CLOSED-LOOP VALIDATION)
-# ==============================================================================
+# 4. VALIDACIÓN DE LAZO CERRADO
 
 # Definición del Target (Color Objetivo/ Pedido del cliente: Rosa Pastel)
 target_lab = np.array([[80, 20, 0]])
